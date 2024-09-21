@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 const MealItem = ({ title, imageURL, duration, complexity, affordability }) => {
   return (
     <View style={styles.mealItem}>
-      <Pressable>
+      <Pressable android_ripple={{ color: "#ccc" }}>
         <View>
           <Image source={{ uri: imageURL }} style={styles.image} />
           <Text>{title}</Text>
