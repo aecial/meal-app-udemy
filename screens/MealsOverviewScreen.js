@@ -16,14 +16,20 @@ const MealsOverviewScreen = ({ route, navigation }) => {
       title: categoryTitle.toUpperCase(),
     });
   }, [catId, navigation]);
+
   function renderMealItem(itemData) {
+    const pressHandler = () => {
+      navigation.navigate("Meal Details", { mealId: itemData.item.id });
+    };
     const item = itemData.item;
     const mealItemProps = {
+      mealId: item.id,
       title: item.title,
       imageURL: item.imageUrl,
       duration: item.duration,
       complexity: item.complexity,
       affordability: item.affordability,
+      onPress: pressHandler,
     };
     return <MealItem {...mealItemProps} />;
   }
