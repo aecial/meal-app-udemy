@@ -8,6 +8,7 @@ import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailsScreen from "./screens/MealDetailsScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import FavoritesContextProvider from "./store/context/favorites-context";
 export default function App() {
   const Stack = createStackNavigator();
   const Drawer = createDrawerNavigator();
@@ -51,35 +52,32 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: "#2C5C4F" },
-            headerTitleAlign: "center",
-            headerTintColor: "#F5E9E0",
-            headerTitleStyle: { fontSize: 24 },
-            cardStyle: { backgroundColor: "#F5E9E0" },
-            headerRight: () => {
-              return (
-                <Image
-                  source={require("./assets/cat.png")}
-                  style={styles.Image}
-                />
-              );
-            },
-          }}
-        >
-          <Stack.Screen
-            name="Drawer"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: "#2C5C4F" },
+              headerTitleAlign: "center",
+              headerTintColor: "#F5E9E0",
+              headerTitleStyle: { fontSize: 24 },
+              cardStyle: { backgroundColor: "#F5E9E0" },
             }}
-          />
-          <Stack.Screen name="Meals Overview" component={MealsOverviewScreen} />
-          <Stack.Screen name="Meal Details" component={MealDetailsScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen
+              name="Drawer"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Meals Overview"
+              component={MealsOverviewScreen}
+            />
+            <Stack.Screen name="Meal Details" component={MealDetailsScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 }
@@ -92,7 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   Image: {
-    width: 48,
-    height: 48,
+    // width: 48,
+    // height: 48,
+    marginRight: 8,
   },
 });
