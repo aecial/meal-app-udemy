@@ -4,12 +4,13 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import MealsList from "../components/MealsList/MealsList";
 import { MEALS } from "../data/dummy-data";
 import PrimaryButton from "../components/PrimaryButton";
+import { useSelector } from "react-redux";
 const FavoritesScreen = ({ navigation }) => {
   const addNow = () => {
     navigation.navigate("Meals Categories");
   };
-  const FavoritesCtx = useContext(FavoritesContext);
-  const favMeals = MEALS.filter((meal) => FavoritesCtx.ids.includes(meal.id));
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
+  const favMeals = MEALS.filter((meal) => favoriteMealIds.includes(meal.id));
   if (favMeals.length === 0) {
     return (
       <View style={styles.screen}>

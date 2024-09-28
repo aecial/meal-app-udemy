@@ -3,17 +3,20 @@ import { View, Text, Flatlist, StyleSheet, Image } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import { FavoritesContext } from "../store/context/favorites-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavorite } from "../store/redux/favorites";
 const MealDetailsScreen = ({ route, navigation }) => {
-  const FavoriteMealsCtx = useContext(FavoritesContext);
-
+  // const FavoriteMealsCtx = useContext(FavoritesContext);
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
+  const dispatch = useDispatch();
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
-  const isFavoriteMeal = FavoriteMealsCtx.ids.includes(mealId);
+  const isFavoriteMeal = favoriteMealIds.includes(mealId);
   function changeFavStatus() {
     if (isFavoriteMeal) {
-      FavoriteMealsCtx.removeFavorite(mealId);
+      dispatch(removeFavorite({ id: mealId }));
     } else {
-      FavoriteMealsCtx.addFavorite(mealId);
+      dispatch(addFavorite({ id: mealId }));
     }
   }
   useEffect(() => {
